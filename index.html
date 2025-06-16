@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -7,35 +7,67 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <style>
-    body {
+  <style> 
+  :root {
+  --bg-color: #ffffff;
+  --text-color: #000000;
+  --accent-color: #FFEE00;
+}
+
+[data-theme="dark"] {
+  --bg-color: #000000;
+  --text-color: #f1f1f1;
+  --accent-color: #FFD700;
+}
+
+body {
   margin: 0;
+  background-color: var(--bg-color);
+  color: var(--text-color);
   font-family: 'Space Grotesk', sans-serif;
-  background-color: #0e0e0e;
-  color: #f1f1f1;
-  line-height: 1.6;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 header {
-  text-align: center;
   padding: 2rem 1rem;
-  border-bottom: 1px solid #444;
+  border-bottom: 2px solid var(--accent-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 nav a {
   margin: 0 1rem;
-  color: #c275c2;
+  color: var(--accent-color);
   text-decoration: none;
+  font-weight: bold;
+  transition: color 0.2s ease;
 }
 
-h1, h2 {
-  color: #c275c2;
+#themeToggle {
+  background: none;
+  border: 2px solid var(--accent-color);
+  color: var(--text-color);
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#themeToggle:hover {
+  background-color: var(--accent-color);
+  color: var(--bg-color);
 }
 
 section {
   padding: 4rem 2rem;
 }
-  </style>
+
+h1, h2 {
+  color: var(--accent-color);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+</style>
   
   <header>
     <h1>ChingJiu</h1>
@@ -43,24 +75,43 @@ section {
       <a href="#portfolio">Portfolio</a>
       <a href="#about">About</a>
       <a href="#contact">Contact</a>
+      <button id="themeToggle">Toggle Theme</button>
     </nav>
   </header>
 
   <main>
     <section id="portfolio">
       <h2>Selected Works</h2>
-      <!-- Images here -->
     </section>
-    
+
     <section id="about">
       <h2>About Me</h2>
-      <p>Your bio and style notes</p>
     </section>
-    
+
     <section id="contact">
       <h2>Contact</h2>
-      <p>Email, social links, anything you want</p>
     </section>
   </main>
+
+  <script src="script.js">
+    const toggle = document.getElementById("themeToggle");
+const html = document.documentElement;
+
+toggle.addEventListener("click", () => {
+  const currentTheme = html.getAttribute("data-theme");
+  const newTheme = currentTheme === "light" ? "dark" : "light";
+  html.setAttribute("data-theme", newTheme);
+  localStorage.setItem("theme", newTheme);
+});
+
+// Load saved theme on page load
+window.addEventListener("DOMContentLoaded", () => {
+  const savedTheme = localStorage.getItem("theme");
+  if (savedTheme) {
+    html.setAttribute("data-theme", savedTheme);
+  }
+});
+
+  </script>
 </body>
 </html>
