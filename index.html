@@ -3,132 +3,108 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>ChingJiu Designs</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>ChingJiu Designs</title>
+
+  <!--—‑‑‑  CORE COLOURS  ‑‑‑—-->
+  <style>
+    :root {
+      --accent: #FFD700;          /* neon‑gold highlight */
+      --bg-light: #ffffff;
+      --text-light: #000000;      /* black */
+      --bg-dark: #000000;
+      --text-dark: #FFD700;       /* yellow body text in dark mode */
+    }
+
+    /* Light */
+    [data-theme="light"] {
+      --bg:   var(--bg-light);
+      --text: var(--text-light);
+    }
+
+    /* Dark */
+    [data-theme="dark"] {
+      --bg:   var(--bg-dark);
+      --text: var(--text-dark);
+    }
+
+    /* ----------  GLOBAL ---------- */
+    * { box-sizing:border-box; }
+
+    body {
+      margin:0;
+      font-family:'Space Grotesk',sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      transition:background .3s,color .3s;
+    }
+
+    header{
+      display:flex;justify-content:space-between;align-items:center;
+      padding:2rem 1rem;
+      border-bottom:2px solid var(--accent);
+    }
+    nav a{
+      margin:0 1rem;
+      color:var(--accent);text-decoration:none;font-weight:700;
+    }
+    h1,h2{color:var(--accent);letter-spacing:2px;text-transform:uppercase}
+
+    /* ----------  GALLERY IMAGE ---------- */
+    .portfolio-image{
+      width:100%;max-width:600px;
+      border:3px solid var(--accent);border-radius:8px;
+      margin-bottom:2rem;
+      transition:transform .3s;
+    }
+    .portfolio-image:hover{transform:scale(1.02)}
+
+    /* ----------  THEME BUTTON ---------- */
+    #themeToggle{
+      background:none;border:2px solid var(--accent);
+      color:var(--text);padding:.5rem 1rem;cursor:pointer;
+      transition:all .2s;
+    }
+    #themeToggle:hover{
+      background:var(--accent);color:var(--bg);
+    }
+  </style>
 </head>
+
 <body>
-  <style> 
-  :root {
-  --bg-color: #ffffff;
-  --text-color: #000000;
-  --accent-color: #FFEE00;
-}
-
-[data-theme="dark"] {
-  --bg-color: #000000;
-  --text-color: #f1f1f1;
-  --accent-color: #FFD700;
-}
-
-body {
-  margin: 0;
-  background-color: var(--bg-color);
-  color: var(--text-color);
-  font-family: 'Space Grotesk', sans-serif;
-  transition: background 0.3s ease, color 0.3s ease;
-}
-
-header {
-  padding: 2rem 1rem;
-  border-bottom: 2px solid var(--accent-color);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-nav a {
-  margin: 0 1rem;
-  color: var(--accent-color);
-  text-decoration: none;
-  font-weight: bold;
-  transition: color 0.2s ease;
-}
-
-#themeToggle {
-  background: none;
-  border: 2px solid var(--accent-color);
-  color: var(--text-color);
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-#themeToggle:hover {
-  background-color: var(--accent-color);
-  color: var(--bg-color);
-}
-
-section {
-  padding: 4rem 2rem;
-}
-
-h1, h2 {
-  color: var(--accent-color);
-  text-transform: uppercase;
-  letter-spacing: 2px;
-}
-    .portfolio-image {
-  width: 100%;
-  max-width: 600px;
-  border: 3px solid var(--accent-color);
-  border-radius: 8px;
-  margin-bottom: 2rem;
-  box-shadow: 0 0 20px rgba(255, 238, 0, 0.3);
-  transition: transform 0.3s ease;
-}
-
-.portfolio-image:hover {
-  transform: scale(1.02);
-}
-
-</style>
-  
   <header>
     <h1>ChingJiu</h1>
     <nav>
       <a href="#portfolio">Portfolio</a>
       <a href="#about">About</a>
       <a href="#contact">Contact</a>
-      <button id="themeToggle">Toggle Theme</button>
+      <button id="themeToggle">Toggle Theme</button>
     </nav>
   </header>
 
   <main>
     <section id="portfolio">
-      <h2>Selected Works</h2>
-      <img src="images/Sex-pistols.png" 
-        alt="A design by ChingJiu" 
-        class="portfolio-image"/>
-    </section>
-
-    <section id="about">
-      <h2>About Me</h2>
-    </section>
-
-    <section id="contact">
-      <h2>Contact</h2>
+      <h2>Selected Works</h2>
+      <img src="images/Sex-pistols.png"
+           alt="A design by ChingJiu"
+           class="portfolio-image">
     </section>
   </main>
 
-  <script src="script.js">
-    const toggle = document.getElementById("themeToggle");
-const html = document.documentElement;
+  <!--—‑‑‑  THEME SCRIPT  ‑‑‑—-->
+  <script>
+    const html   = document.documentElement;
+    const button = document.getElementById('themeToggle');
 
-toggle.addEventListener("click", () => {
-  const currentTheme = html.getAttribute("data-theme");
-  const newTheme = currentTheme === "light" ? "dark" : "light";
-  html.setAttribute("data-theme", newTheme);
-  localStorage.setItem("theme", newTheme);
-});
+    // initial state (saved preference if exists)
+    const saved  = localStorage.getItem('theme') || 'light';
+    html.dataset.theme = saved;
 
-// Load saved theme on page load
-window.addEventListener("DOMContentLoaded", () => {
-  const savedTheme = localStorage.getItem("theme");
-  if (savedTheme) {
-    html.setAttribute("data-theme", savedTheme);
-  }
-});
-
+    // toggle
+    button.addEventListener('click',()=>{
+      const now   = html.dataset.theme === 'light' ? 'dark' : 'light';
+      html.dataset.theme = now;
+      localStorage.setItem('theme',now);
+    });
   </script>
 </body>
 </html>
