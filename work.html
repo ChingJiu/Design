@@ -129,38 +129,6 @@
       display: block;
     }
 
-    .controls {
-      text-align: center;
-      margin-top: 1rem;
-    }
-
-    .controls button {
-      background: var(--accent);
-      border: none;
-      color: var(--bg);
-      font-size: 1.4rem;
-      padding: 0.3rem 0.8rem;
-      margin: 0 0.5rem;
-      cursor: pointer;
-    }
-
-    #modal {
-      position: fixed;
-      inset: 0;
-      display: none;
-      justify-content: center;
-      align-items: center;
-      background: rgba(0, 0, 0, 0.8);
-      z-index: 1000;
-    }
-
-    #modal img {
-      max-width: 90%;
-      max-height: 90%;
-      border: 4px solid var(--accent);
-      border-radius: 10px;
-    }
-
     footer {
       text-align: center;
       padding: 20px;
@@ -182,23 +150,11 @@
     <h1>ChingJiu</h1>
     <nav>
       <a href="index.html">Home</a>
-      <a href="#about">About</a>
+      <a href="#about.html">About</a>
     </nav>
   </header>
 
   <main>
-    <section id="portfolio">
-      <h2>Selected Works</h2>
-      <div class="slider-wrap">
-        <img src="images/IMG_8323.png" class="slide active" alt="Work 1" onclick="openModal(this.src)">
-        <img src="images/work2.png" class="slide" alt="Work 2" onclick="openModal(this.src)">
-        <img src="images/work3.png" class="slide" alt="Work 3" onclick="openModal(this.src)">
-      </div>
-      <div class="controls">
-        <button id="prevBtn">←</button>
-        <button id="nextBtn">→</button>
-      </div>
-
       <section id="design-categories" style="max-width: 600px; margin: 3rem auto; text-align: center;">
   <h2 style="color: var(--accent); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 2rem;">Explore My Designs</h2>
   <div style="
@@ -207,7 +163,14 @@
     gap: 1.5rem;
     justify-items: center;
   ">
-    <a href="style1.html" style="
+    <a href="style1.html" 
+      style="text-decoration: none; color: var(--text);">
+      <div style="
+            display: flex;
+        flex-direction: column;
+        align-items: center;
+      ">
+        <div style="
       display: flex; 
       align-items: center; 
       justify-content: center; 
@@ -222,6 +185,12 @@
       transition: box-shadow 0.3s ease;
     " onmouseover="this.style.boxShadow='0 0 16px var(--accent)'" onmouseout="this.style.boxShadow='0 0 8px var(--accent)'">
       &#128193; <!-- folder emoji -->
+        </div>
+        <span style="margin-top: 0.5rem; 
+          font-weight:700; 
+          text-transform: uppercase; 
+          letter-spacing: 1px;">Minimalist</span>
+      </div>                                                                                                             
     </a>
     <a href="style2.html" style="
       display: flex; 
