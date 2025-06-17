@@ -1,3 +1,157 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ChingJiu Designs</title>
+
+<!-- ========  THEME VARIABLES  ======== -->
+<style>
+:root{
+  --accent:#FFD700;          /* neon gold */
+  --bg-light:#ffffff;
+  --text-light:#000000;
+  --bg-dark:#000000;
+  --text-dark:#FFD700;
+}
+/* when html[data-theme="…"] flips, these swap */
+[data-theme="light"]{ --bg:var(--bg-light); --text:var(--text-light); }
+[data-theme="dark"] { --bg:var(--bg-dark);  --text:var(--text-dark);  }
+
+/* ---------- GLOBAL ---------- */
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:'Space Grotesk',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  transition:background .3s,color .3s;
+}
+header{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:2rem 1rem;border-bottom:2px solid var(--accent);
+}
+nav a{
+  margin:0 1rem;color:var(--accent);text-decoration:none;font-weight:700
+}
+h1,h2{color:var(--accent);letter-spacing:2px;text-transform:uppercase}
+main{padding:3rem 1rem;max-width:900px;margin:auto}
+
+/* ---------- THEME TOGGLE (slider) ---------- */
+.switch{position:fixed;top:15px;right:15px;width:52px;height:28px}
+.switch input{opacity:0;width:0;height:0}
+.slider{
+  position:absolute;cursor:pointer;inset:0;
+  background:rgba(255,215,0,.3);border-radius:34px;transition:.4s;
+}
+.slider:before{
+  content:"";position:absolute;height:20px;width:20px;left:4px;bottom:4px;
+  background:var(--accent);border-radius:50%;transition:.4s;
+}
+input:checked + .slider{background:var(--accent)}
+input:checked + .slider:before{transform:translateX(24px)}
+
+/* ---------- CAROUSEL ---------- */
+.slider-wrap{position:relative;overflow:hidden}
+.slide{
+  display:none;width:100%;max-height:70vh;object-fit:contain;
+  border:3px solid var(--accent);border-radius:8px
+}
+.slide.active{display:block}
+.controls{margin:1rem 0;text-align:center}
+.controls button{
+  background:var(--accent);border:none;color:var(--bg);
+  font-size:1.4rem;padding:.3rem .8rem;margin:0 .5rem;cursor:pointer
+}
+
+/* ---------- MODAL ---------- */
+#modal{
+  position:fixed;inset:0;display:none;justify-content:center;align-items:center;
+  background:rgba(0,0,0,.8);z-index:1000
+}
+#modal img{
+  max-width:90%;max-height:90%;border:4px solid var(--accent);border-radius:10px
+}
+</style>
+</head>
+
+<body>
+<!-- theme switch -->
+<label class="switch">
+  <input type="checkbox" id="themeToggle">
+  <span class="slider"></span>
+</label>
+
+<header>
+  <h1>ChingJiu</h1>
+  <nav>
+    <a href="#portfolio">Works</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<main>
+  <section id="portfolio">
+    <h2>Selected Works</h2>
+
+    <!-- Carousel -->
+    <div class="slider-wrap">
+      <img src="images/IMG_8323.png" class="slide active" alt="work 1">
+      <img src="images/work2.png" class="slide"        alt="work 2">
+      <img src="images/work3.png" class="slide"        alt="work 3">
+    </div>
+    <div class="controls">
+      <button id="prevBtn">←</button>
+      <button id="nextBtn">→</button>
+    </div>
+  </section>
+</main>
+
+<!-- modal viewer -->
+<div id="modal" onclick="closeModal()"><img id="modalImg"></div>
+
+<!-- ==========  JS  ========== -->
+<script>
+/* ---------- theme ---------- */
+const html   = document.documentElement;
+const toggle = document.getElementById('themeToggle');
+/* load saved pref */
+const saved  = localStorage.getItem('theme')||'light';
+html.dataset.theme = saved;
+toggle.checked = saved==='dark';
+/* click */
+toggle.addEventListener('change',()=>{
+  const newTheme = toggle.checked?'dark':'light';
+  html.dataset.theme = newTheme;
+  localStorage.setItem('theme',newTheme);
+});
+
+/* ---------- carousel ---------- */
+const slides = document.querySelectorAll('.slide');
+let idx=0;
+function show(i){
+  slides.forEach((s,n)=>s.classList.toggle('active',n===i));
+}
+document.getElementById('nextBtn').onclick=()=>{
+  idx=(idx+1)%slides.length; show(idx);
+};
+document.getElementById('prevBtn').onclick=()=>{
+  idx=(idx-1+slides.length)%slides.length; show(idx);
+};
+
+/* ---------- modal ---------- */
+const modal = document.getElementById('modal');
+const modalImg = document.getElementById('modalImg');
+slides.forEach(img=>{
+  img.style.cursor='zoom-in';
+  img.onclick = ()=>{ modal.style.display='flex'; modalImg.src=img.src; };
+});
+function closeModal(){ modal.style.display='none'; }
+</script>
+</body>
+</html>
+
 <script>
   .portfolio-image {
   width: 80%;
