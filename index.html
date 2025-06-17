@@ -58,26 +58,81 @@
     }
     .portfolio-image:hover{transform:scale(1.02)}
 
-    /* ----------  THEME BUTTON ---------- */
-    #themeToggle{
-      background:none;border:2px solid var(--accent);
-      color:var(--text);padding:.5rem 1rem;cursor:pointer;
-      transition:all .2s;
+     .theme-toggle {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      background: transparent;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      padding: 6px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 13px;
     }
-    #themeToggle:hover{
-      background:var(--accent);color:var(--bg);
-    }
+        .switch {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  display: inline-block;
+  width: 52px;
+  height: 28px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--soft-border);
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 4px;
+  bottom: 4px;
+  background-color: var(--accent);
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: var(--accent);
+}
+
+input:checked + .slider:before {
+  transform: translateX(24px);
+}
+
   </style>
 </head>
 
 <body>
+  <label class="switch">
+  <input type="checkbox" id="themeSwitch" onchange="toggleTheme()" />
+  <span class="slider round"></span>
+</label>
+
   <header>
     <h1>ChingJiu</h1>
     <nav>
       <a href="#portfolio">Portfolio</a>
       <a href="#about">About</a>
       <a href="#contact">Contact</a>
-      <button id="themeToggle">Theme</button>
+      <button id="theme-toggle">Theme</button>
     </nav>
   </header>
 
@@ -92,19 +147,28 @@
 
   <!--—‑‑‑  THEME SCRIPT  ‑‑‑—-->
   <script>
-    const html   = document.documentElement;
-    const button = document.getElementById('themeToggle');
+    <script>
+  window.onload = function () {
+  const switchInput = document.getElementById("themeSwitch");
+  // Set default theme to light
+  document.body.classList.add("light");
+  document.body.classList.remove("dark");
 
-    // initial state (saved preference if exists)
-    const saved  = localStorage.getItem('theme') || 'light';
-    html.dataset.theme = saved;
+  // Ensure the toggle starts in the off position (light theme)
+  switchInput.checked = false;
+};
 
-    // toggle
-    button.addEventListener('click',()=>{
-      const now   = html.dataset.theme === 'light' ? 'dark' : 'light';
-      html.dataset.theme = now;
-      localStorage.setItem('theme',now);
-    });
+  function toggleTheme() {
+    const switchInput = document.getElementById("themeSwitch");
+    if (switchInput.checked) {
+      document.body.classList.remove("light");
+      document.body.classList.add("dark");
+    } else {
+      document.body.classList.remove("dark");
+      document.body.classList.add("light");
+    }
+  }
+    
   </script>
 </body>
 </html>
