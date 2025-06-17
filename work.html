@@ -183,7 +183,6 @@
     <nav>
       <a href="index.html">Home</a>
       <a href="#about">About</a>
-      <a href="#contact">Contact</a>
     </nav>
   </header>
 
@@ -199,6 +198,67 @@
         <button id="prevBtn">←</button>
         <button id="nextBtn">→</button>
       </div>
+
+      <section id="design-categories" style="max-width: 600px; margin: 3rem auto; text-align: center;">
+  <h2 style="color: var(--accent); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 2rem;">Explore My Designs</h2>
+  <div style="
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    justify-items: center;
+  ">
+    <a href="style1.html" style="
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      width: 80px; 
+      height: 80px; 
+      background: var(--accent);
+      color: var(--bg);
+      font-size: 3rem;
+      border-radius: 12px;
+      text-decoration: none;
+      box-shadow: 0 0 8px var(--accent);
+      transition: box-shadow 0.3s ease;
+    " onmouseover="this.style.boxShadow='0 0 16px var(--accent)'" onmouseout="this.style.boxShadow='0 0 8px var(--accent)'">
+      &#128193; <!-- folder emoji -->
+    </a>
+    <a href="style2.html" style="
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      width: 80px; 
+      height: 80px; 
+      background: var(--accent);
+      color: var(--bg);
+      font-size: 3rem;
+      border-radius: 12px;
+      text-decoration: none;
+      box-shadow: 0 0 8px var(--accent);
+      transition: box-shadow 0.3s ease;
+    " onmouseover="this.style.boxShadow='0 0 16px var(--accent)'" onmouseout="this.style.boxShadow='0 0 8px var(--accent)'">
+      &#128193;
+    </a>
+    <a href="style3.html" style="
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      width: 80px; 
+      height: 80px; 
+      background: var(--accent);
+      color: var(--bg);
+      font-size: 3rem;
+      border-radius: 12px;
+      text-decoration: none;
+      box-shadow: 0 0 8px var(--accent);
+      transition: box-shadow 0.3s ease;
+    " onmouseover="this.style.boxShadow='0 0 16px var(--accent)'" onmouseout="this.style.boxShadow='0 0 8px var(--accent)'">
+      &#128193;
+    </a>
+    <!-- add up to 9 or more if you want -->
+  </div>
+</section>
+
     </section>
   </main>
 
@@ -224,36 +284,7 @@
       localStorage.setItem('theme', newTheme);
     });
 
-    // Carousel
-    const slides = document.querySelectorAll('.slide');
-    let idx = 0;
-
-    function showSlide(i) {
-      slides.forEach((slide, n) => slide.classList.toggle('active', n === i));
-    }
-
-    document.getElementById('nextBtn').onclick = () => {
-      idx = (idx + 1) % slides.length;
-      showSlide(idx);
-    };
-
-    document.getElementById('prevBtn').onclick = () => {
-      idx = (idx - 1 + slides.length) % slides.length;
-      showSlide(idx);
-    };
-
-    // Modal
-    const modal = document.getElementById('modal');
-    const modalImg = document.getElementById('modalImg');
-
-    function openModal(src) {
-      modal.style.display = 'flex';
-      modalImg.src = src;
-    }
-
-    function closeModal() {
-      modal.style.display = 'none';
-    }
+  
   </script>
 
 </body>
