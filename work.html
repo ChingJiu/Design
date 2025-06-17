@@ -6,6 +6,35 @@
   display: block;
   margin: 0 auto 2rem;
 }
+  .modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.8);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal img {
+  max-width: 90%;
+  max-height: 90%;
+  border: 4px solid var(--accent-color);
+  border-radius: 10px;
+}
+
+  function openModal(src) {
+  document.getElementById('modal').style.display = 'flex';
+  document.getElementById('modalImage').src = src;
+}
+
+function closeModal() {
+  document.getElementById('modal').style.display = 'none';
+}
+
+
   const slides = document.querySelectorAll('.slide');
 let current = 0;
 
@@ -30,9 +59,14 @@ document.querySelector('.prev').addEventListener('click', () => {
   <h2>Selected Works</h2>
   <div class="slider">
     <img src="images/work1.png" class="slide active" />
+    <img src="images/work1.png" class="slide active" onclick="openModal(this.src)" />
     <img src="images/work2.png" class="slide" />
     <img src="images/work3.png" class="slide" />
     <div class="controls">
+      <div id="modal" class="modal" onclick="closeModal()">
+  <img id="modalImage" />
+</div>
+
       <button class="prev">←</button>
       <button class="next">→</button>
     </div>
