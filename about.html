@@ -107,6 +107,28 @@
       transform: translateX(24px);
     }
 
+    .image-section {
+      margin-bottom: 3rem;
+      text-align: center;
+    }
+
+    .image-section h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 1px;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+    }
+
+    .image-section img {
+      width: 100%;
+      max-width: 600px;
+      border: 3px solid var(--accent);
+      border-radius: 8px;
+      box-shadow: 0 0 8px var(--accent);
+    }
+
     footer {
       text-align: center;
       padding: 20px;
@@ -131,11 +153,17 @@
   </header>
 
   <main>
-    <section id="about" style="max-width: 600px; margin: 3rem auto; text-align: center;">
-      <h2>美工個人資訊</h2>
-      <img src="images/Cover.PNG" class="slide active" alt="work 1">
-      <img src="images/intro.PNG" class="slide" alt="work 2">
-      </section>
+    <h2>關於美工</h2>
+
+    <div class="image-section">
+      <h3>個人介紹</h3>
+      <img src="images/Cover.PNG" alt="個人介紹">
+    </div>
+
+    <div class="image-section">
+      <h3>契約條款</h3>
+      <img src="images/intro.PNG" alt="契約條款">
+    </div>
   </main>
 
   <footer>
