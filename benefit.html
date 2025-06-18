@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ChingJiu Designs – About</title>
+
+  <style>
+    :root {
+      --accent: #FFD700;
+      --bg-light: #ffffff;
+      --text-light: #000000;
+      --bg-dark: #000000;
+      --text-dark: #FFD700;
+    }
+
+    [data-theme="light"] {
+      --bg: var(--bg-light);
+      --text: var(--text-light);
+    }
+
+    [data-theme="dark"] {
+      --bg: var(--bg-dark);
+      --text: var(--text-dark);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Space Grotesk', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      transition: background 0.3s, color 0.3s;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 2rem 1rem;
+      border-bottom: 2px solid var(--accent);
+    }
+
+    nav a {
+      margin: 0 1rem;
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    h1, h2 {
+      color: var(--accent);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    main {
+      padding: 3rem 1rem;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .switch {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      width: 52px;
+      height: 28px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      inset: 0;
+      background: rgba(255, 215, 0, 0.3);
+      border-radius: 34px;
+      transition: 0.4s;
+    }
+
+    .slider:before {
+      content: "";
+      position: absolute;
+      height: 20px;
+      width: 20px;
+      left: 4px;
+      bottom: 4px;
+      background: var(--accent);
+      border-radius: 50%;
+      transition: 0.4s;
+    }
+
+    input:checked + .slider {
+      background: var(--accent);
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(24px);
+    }
+
+    .image-section {
+      margin-bottom: 3rem;
+      text-align: center;
+    }
+
+    .image-section h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 1px;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+    }
+
+    .image-section img {
+      width: 100%;
+      max-width: 600px;
+      border: 3px solid var(--accent);
+      border-radius: 8px;
+      box-shadow: 0 0 8px var(--accent);
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Theme Toggle -->
+  <label class="switch">
+    <input type="checkbox" id="themeToggle" />
+    <span class="slider"></span>
+  </label>
+
+  <header>
+    <h1>ChingJiu</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="works.html">Works</a>
+      <a href="about.html">About</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>福利項目</h2>
+    <div class="image-section">
+     <img src="images/Cover.PNG" alt="個人介紹">
+    </div>
+    <div class="image-section">
+      <h3>教學詳情</h3>
+      <img src="images/intro.PNG" alt="契約條款">
+    </div>
+  </main>
+
+  <footer>
+    <p>Made by ChingJiu | Last Edited 06/17/2025</p>
+  </footer>
+
+  <script>
+    const html = document.documentElement;
+    const toggle = document.getElementById('themeToggle');
+    const saved = localStorage.getItem('theme') || 'light';
+    html.dataset.theme = saved;
+    toggle.checked = saved === 'dark';
+    toggle.addEventListener('change', () => {
+      const newTheme = toggle.checked ? 'dark' : 'light';
+      html.dataset.theme = newTheme;
+      localStorage.setItem('theme', newTheme);
+    });
+  </script>
+
+</body>
+</html>
