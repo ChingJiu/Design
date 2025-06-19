@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ChingJiu Designs</title>
+
+<style>
+/* ------------- THEME ------------- */
+:root{
+  --accent:#FFD700;
+  --bg-light:#ffffff; --text-light:#000000;
+  --bg-dark:#000000;   --text-dark:#FFD700;
+}
+[data-theme="light"]{ --bg:var(--bg-light); --text:var(--text-light);}
+[data-theme="dark"] { --bg:var(--bg-dark);  --text:var(--text-dark); }
+
+*{box-sizing:border-box}
+body{
+  margin:0;font-family:'Space Grotesk',sans-serif;
+  background:var(--bg);color:var(--text);
+  transition:background .3s,color .3s;
+}
+header{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:2rem 1rem;border-bottom:2px solid var(--accent);
+}
+nav a{margin:0 1rem;color:var(--accent);text-decoration:none;font-weight:700}
+h1,h2{color:var(--accent);letter-spacing:2px;text-transform:uppercase;text-align:center}
+main{padding:3rem 1rem;max-width:900px;margin:auto}
+
+/* Theme toggle slider */
+.switch{position:fixed;top:15px;right:15px;width:52px;height:28px}
+.switch input{opacity:0;width:0;height:0}
+.slider{position:absolute;inset:0;cursor:pointer;
+  background:rgba(255,215,0,.3);border-radius:34px;transition:.4s;}
+.slider:before{content:"";position:absolute;height:20px;width:20px;left:4px;bottom:4px;
+  background:var(--accent);border-radius:50%;transition:.4s;}
+input:checked+.slider{background:var(--accent)}
+input:checked+.slider:before{transform:translateX(24px)}
+
+/* Carousel */
+.carousel{margin:3rem 0}
+.slider-wrap{
+  position:relative;overflow:hidden;display:flex;justify-content:center;align-items:center;
+}
+.slide{
+  display:none;width:80%;max-height:70vh;object-fit:contain;
+  border:3px solid var(--accent);border-radius:8px;
+}
+.slide.active{display:block}
+.controls{margin:1rem 0;text-align:center}
+.controls button{
+  background:var(--accent);border:none;color:var(--bg);
+  font-size:1.4rem;padding:.3rem .8rem;margin:0 .5rem;cursor:pointer;
+}
+
+/* Modal */
+#modal{position:fixed;inset:0;display:none;justify-content:center;align-items:center;
+  background:rgba(0,0,0,.8);z-index:1000;}
+#modal img{max-width:90%;max-height:90%;border:4px solid var(--accent);border-radius:10px}
+
+footer{text-align:center;padding:20px;color:var(--accent)}
+</style>
+</head>
+
+<body>
+<!-- theme switch -->
+<label class="switch">
+  <input type="checkbox" id="themeToggle"><span class="slider"></span>
+</label>
+
+<header>
+  <h1>ChingJiu</h1>
+  <nav>
+    <a href="work.html">Back to Works</a>
+  </nav>
+</header>
+
+<main>
+  <!-- -------------- CAROUSEL -------------- -->
+  <section class="carousel" aria-labelledby="introHeading">
+    <h2 id="introHeading">Banners</h2>
+    <div class="slider-wrap">
+      <img src="card/banner01.PNG" class="slide active" alt="banner 1">
+      <img src="card/banner02.PNG" class="slide"        alt="banner 2">
+      <img src="card/banner03.PNG" class="slide"        alt="banner 3">
+      <img src="card/banner04.PNG" class="slide"        alt="banner 4">
+         </div>
+    <div class="controls">
+      <button id="prevBtn">←</button>
+      <button id="nextBtn">→</button>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>Made by ChingJiu | Last Edited 06/19/2025</p>
+</footer>
+
+<!-- Modal viewer -->
+<div id="modal" onclick="closeModal()"><img id="modalImg" alt=""></div>
+
+<!-- ==========  JS  ========== -->
+<script>
+/* ---------- Theme ---------- */
+const html = document.documentElement;
+const themeToggle = document.getElementById('themeToggle');
+html.dataset.theme = localStorage.getItem('theme') || 'light';
+themeToggle.checked = html.dataset.theme === 'dark';
+themeToggle.addEventListener('change', () => {
+  const newTheme = themeToggle.checked ? 'dark' : 'light';
+  html.dataset.theme = newTheme;
+  localStorage.setItem('theme', newTheme);
+});
+
+/* ---------- Carousel ---------- */
+const slideElems = document.querySelectorAll('.slide');
+let idx = 0;
+function showSlide(i){
+  slideElems.forEach((s,n)=>s.classList.toggle('active', n===i));
+}
+document.getElementById('nextBtn').addEventListener('click',()=>{
+  idx = (idx+1)%slideElems.length; showSlide(idx);
+});
+document.getElementById('prevBtn').addEventListener('click',()=>{
+  idx = (idx-1+slideElems.length)%slideElems.length; showSlide(idx);
+});
+
+/* ---------- Modal ---------- */
+const modal   = document.getElementById('modal');
+const modalImg= document.getElementById('modalImg');
+slideElems.forEach(img=>{
+  img.style.cursor='zoom-in';
+  img.addEventListener('click', ()=>{
+    modalImg.src = img.src;
+    modal.style.display = 'flex';
+  });
+});
+function closeModal(){ modal.style.display='none'; }
+</script>
+</body>
+</html>
