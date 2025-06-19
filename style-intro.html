@@ -41,7 +41,7 @@ input:checked+.slider:before{transform:translateX(24px)}
 
 /* Carousel */
 .carousel{margin:3rem 0}
-.carousel .slider-wrap{
+.slider-wrap{
   position:relative;overflow:hidden;display:flex;justify-content:center;align-items:center;
 }
 .slide{
@@ -65,7 +65,7 @@ footer{text-align:center;padding:20px;color:var(--accent)}
 </head>
 
 <body>
-<!-- Theme switch -->
+<!-- theme switch -->
 <label class="switch">
   <input type="checkbox" id="themeToggle"><span class="slider"></span>
 </label>
@@ -73,35 +73,34 @@ footer{text-align:center;padding:20px;color:var(--accent)}
 <header>
   <h1>ChingJiu</h1>
   <nav>
-    <a href="work.html">Back to Works</a>
-   </nav>
+    <a href="work.html">Back to Works</a>
+  </nav>
 </header>
 
 <main>
-  <!-- ------------------ CAROUSEL 1 ------------------ -->
-  <section class="carousel" aria-labelledby="worksHeading">
-    <h2 id="worksHeading">Introduction Card</h2>
+  <!-- -------------- CAROUSEL -------------- -->
+  <section class="carousel" aria-labelledby="introHeading">
+    <h2 id="introHeading">Introduction Card</h2>
     <div class="slider-wrap">
-      <img src="card/Intro01.JPG" class="slide active" alt="intro 1">
-      <img src="card/Intro02.JPG" class="slide"        alt="intro 2">
-      <img src="card/Intro03.JPG" class="slide"        alt="intro 3">
-      <img src="card/Intro04.JPG" class="slide"        alt="intro 4">
-      <img src="card/Intro05.PNG" class="slide"        alt="intro 5">
-      <img src="card/Intro06.PNG" class="slide"        alt="intro 6">
-      <img src="card/Intro07.PNG" class="slide"        alt="intro 7">
-      <img src="card/Intro08.PNG" class="slide"        alt="intro 8">
-         </div>
+      <img src="card/Intro01.JPG" class="slide active" alt="Intro 1">
+      <img src="card/Intro02.JPG" class="slide"        alt="Intro 2">
+      <img src="card/Intro03.JPG" class="slide"        alt="Intro 3">
+      <img src="card/Intro04.JPG" class="slide"        alt="Intro 4">
+      <img src="card/Intro05.PNG" class="slide"        alt="Intro 5">
+      <img src="card/Intro06.PNG" class="slide"        alt="Intro 6">
+      <img src="card/Intro07.PNG" class="slide"        alt="Intro 7">
+      <img src="card/Intro08.PNG" class="slide"        alt="Intro 8">
+    </div>
     <div class="controls">
-      <button data-action="prev">←</button>
-      <button data-action="next">→</button>
+      <button id="prevBtn">←</button>
+      <button id="nextBtn">→</button>
     </div>
   </section>
-
-  <footer>
-    <p>Made by ChingJiu | Last Edited 06/19/2025</p>
-  </footer>
-
 </main>
+
+<footer>
+  <p>Made by ChingJiu | Last Edited 06/19/2025</p>
+</footer>
 
 <!-- Modal viewer -->
 <div id="modal" onclick="closeModal()"><img id="modalImg" alt=""></div>
@@ -119,42 +118,30 @@ themeToggle.addEventListener('change', () => {
   localStorage.setItem('theme', newTheme);
 });
 
-const slides = document.querySelectorAll('.slide');
-let idx=0;
-function show(i){
-  slides.forEach((s,n)=>s.classList.toggle('active',n===i));
+/* ---------- Carousel ---------- */
+const slideElems = document.querySelectorAll('.slide');
+let idx = 0;
+function showSlide(i){
+  slideElems.forEach((s,n)=>s.classList.toggle('active', n===i));
 }
-document.getElementById('nextBtn').onclick=()=>{
-  idx=(idx+1)%slides.length; show(idx);
-};
-document.getElementById('prevBtn').onclick=()=>{
-  idx=(idx-1+slides.length)%slides.length; show(idx);
-};
-
-/* ---------- modal ---------- */
-const modal = document.getElementById('modal');
-const modalImg = document.getElementById('modalImg');
-slides.forEach(img=>{
-  img.style.cursor='zoom-in';
-  img.onclick = ()=>{ modal.style.display='flex'; modalImg.src=img.src; };
+document.getElementById('nextBtn').addEventListener('click',()=>{
+  idx = (idx+1)%slideElems.length; showSlide(idx);
 });
-function closeModal(){ modal.style.display='none'; }
+document.getElementById('prevBtn').addEventListener('click',()=>{
+  idx = (idx-1+slideElems.length)%slideElems.length; showSlide(idx);
+});
 
-  /* modal for this carousel’s images */
-  slides.forEach(img=>{
-    img.style.cursor='zoom-in';
-    img.addEventListener('click', ()=>{
-      document.getElementById('modalImg').src = img.src;
-      document.getElementById('modal').style.display='flex';
-    });
+/* ---------- Modal ---------- */
+const modal   = document.getElementById('modal');
+const modalImg= document.getElementById('modalImg');
+slideElems.forEach(img=>{
+  img.style.cursor='zoom-in';
+  img.addEventListener('click', ()=>{
+    modalImg.src = img.src;
+    modal.style.display = 'flex';
   });
 });
-
-/* ---------- Modal close ---------- */
-function closeModal(){
-  document.getElementById('modal').style.display='none';
-}
+function closeModal(){ modal.style.display='none'; }
 </script>
-
 </body>
 </html>
