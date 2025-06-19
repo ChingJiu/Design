@@ -95,12 +95,15 @@ footer{text-align:center;padding:20px;color:var(--accent)}
   <section class="carousel" aria-labelledby="reviewHeading">
     <h2 id="reviewHeading">Client Review</h2>
     <div class="slider-wrap">
-      <img src="review/Review01.jpg" class="slide active" alt="Review 1">
-      <img src="review/Review02.jpg" class="slide"        alt="Review 2">
-      <img src="review/Review03.jpg" class="slide"        alt="Review 3">
-      <img src="review/Review04.jpg" class="slide"        alt="Review 4">
-      <img src="review/Review05.jpg" class="slide"        alt="Review 5">
-    </div>
+      <img src="intro/Intro01.jpg" class="slide active" alt="intro 1">
+      <img src="intro/Intro02.jpg" class="slide"        alt="intro 2">
+      <img src="intro/Intro03.jpg" class="slide"        alt="intro 3">
+      <img src="intro/Intro04.jpg" class="slide"        alt="intro 4">
+      <img src="intro/Intro05.jpg" class="slide"        alt="intro 5">
+      <img src="intro/Intro06.jpg" class="slide"        alt="intro 6">
+      <img src="intro/Intro07.jpg" class="slide"        alt="intro 7">
+      <img src="intro/Intro08.jpg" class="slide"        alt="intro 8">
+         </div>
     <div class="controls">
       <button data-action="prev">←</button>
       <button data-action="next">→</button>
@@ -129,23 +132,26 @@ themeToggle.addEventListener('change', () => {
   localStorage.setItem('theme', newTheme);
 });
 
-/* ---------- Multi‑carousel logic ---------- */
-document.querySelectorAll('.carousel').forEach(carousel => {
-  const slides = carousel.querySelectorAll('.slide');
-  let index = 0;
+const slides = document.querySelectorAll('.slide');
+let idx=0;
+function show(i){
+  slides.forEach((s,n)=>s.classList.toggle('active',n===i));
+}
+document.getElementById('nextBtn').onclick=()=>{
+  idx=(idx+1)%slides.length; show(idx);
+};
+document.getElementById('prevBtn').onclick=()=>{
+  idx=(idx-1+slides.length)%slides.length; show(idx);
+};
 
-  function show(i){
-    slides.forEach((s,n)=>s.classList.toggle('active', n===i));
-  }
-
-  carousel.querySelectorAll('[data-action]').forEach(btn=>{
-    btn.addEventListener('click',()=>{
-      index = btn.dataset.action === 'next'
-              ? (index+1)%slides.length
-              : (index-1+slides.length)%slides.length;
-      show(index);
-    });
-  });
+/* ---------- modal ---------- */
+const modal = document.getElementById('modal');
+const modalImg = document.getElementById('modalImg');
+slides.forEach(img=>{
+  img.style.cursor='zoom-in';
+  img.onclick = ()=>{ modal.style.display='flex'; modalImg.src=img.src; };
+});
+function closeModal(){ modal.style.display='none'; }
 
   /* modal for this carousel’s images */
   slides.forEach(img=>{
